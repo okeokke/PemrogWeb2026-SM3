@@ -204,7 +204,7 @@ footer {
     }
 
 /* Tablet ke bawah */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     main section:nth-of-type(2) {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -255,4 +255,18 @@ footer {
     form select {
     max-width: 100%;
     }
+  /* tambahan */
+  @media (min-width: 1400px) {
+    main {
+      max-width: 1000px;
+    }
+  }
+
+  pre {
+    overflow-x: auto;
+    background-color: #2b2b2b;
+    font-family: 'Courier New', Courier, monospace;
+    color: #cdd4da;
+    padding: 5%;
+  }
 }
