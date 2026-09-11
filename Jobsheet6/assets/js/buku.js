@@ -38,4 +38,8 @@ async function muatDaftarBuku() {
     }
 }
 
+const btnRefresh=document.getElementById("btn-refresh-buku")
+  if (btnRefresh) {
+    btnRefresh.addEventListener("click", muatDaftarBuku);
+  }
 document.addEventListener("DOMContentLoaded", muatDaftarBuku);
