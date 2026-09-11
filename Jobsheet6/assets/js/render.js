@@ -16,7 +16,7 @@ async function muatDataTabel(jsonFile, keys, selector) {
     try {
         // Simulasi delay jaringan agar loading terlihat
         await new Promise(function (resolve) {
-            setTimeout(resolve, 600);
+            setTimeout(resolve, 3000);
         });
         var res = await fetch(jsonFile);
         if (!res.ok) {
