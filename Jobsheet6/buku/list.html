@@ -38,6 +38,7 @@
                     <tr>
                         <th>Judul</th>
                         <th>Pengarang</th>
+                        <th>Kategori</th>
                         <th>Tahun</th>
                         <th>Stok</th>
                         <th>Aksi</th>
@@ -134,13 +135,13 @@
     <script src="../assets/js/render.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            muatDataTabel("../data/buku.json", ["judul", "pengarang", "tahun", "stok"]);
+            muatDataTabel("../data/buku.json", ["judul", "pengarang", "kategori", "tahun", "stok"]);
         });
 
         var btnRefresh = document.getElementById("btn-refresh-buku");
         if (btnRefresh) {
             btnRefresh.addEventListener("click", function () {
-                muatDataTabel("../data/buku.json", ["judul", "pengarang", "tahun", "stok"]);
+                muatDataTabel("../data/buku.json", ["judul", "pengarang", "kategori", "tahun", "stok"]);
             });
         }
     </script>
