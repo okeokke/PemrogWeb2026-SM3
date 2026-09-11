@@ -193,6 +193,12 @@ form button[type="submit"]:hover {
     margin-bottom: 1rem;
 }
 
+.table-counter {
+    font-size: 0.9rem;
+    color: #55677a;
+    margin-bottom: 0.75rem;
+}
+
 .search-box input {
     width: 100%;
     max-width: 320px;
@@ -245,10 +251,15 @@ footer {
         width: 100%;
         order: 3;
         margin-top: 1rem;
+        opacity: 0;
+        max-height: 0px;
+        transition: opacity 0.3s ease-in;
     }
 
     header nav.nav-open {
-    display: block;
+      opacity: 1;
+      display: block;
+      max-height: 300px;
     }
 
 

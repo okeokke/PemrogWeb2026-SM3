@@ -18,9 +18,23 @@ function initHapusConfirm() {
             const yakin = confirm("Yakin ingin menghapus \"" + nama + "\"?");
             if (yakin && row) {
                 row.remove();
+                tableCounter();
             }
         });
     });
+}
+
+function tableCounter() {
+    const counter=document.getElementById("table-counter");
+    const table=document.querySelector(".table-responsive table");
+    if (!counter || !table) return;
+
+    const allRows=table.querySelectorAll("tbody tr");
+    const visibleRows=table.querySelectorAll('tbody tr:not([style*="display: none"])');
+    const total=allRows.length;
+    const visible=visibleRows.length;
+
+    counter.textContent="Menampilkan "+visible+" dari "+total+" buku";
 }
 
 // ===== Filter/pencarian tabel real-time =====
@@ -34,8 +48,11 @@ function initTableFilter() {
         const rows = table.querySelectorAll("tbody tr");
         rows.forEach(function (row) {
             const teks = row.textContent.toLowerCase();
+            const mainCell=row.querySelector("td");
+            const mainText=mainCell?mainCell.textContent.toLowerCase() : "";
             row.style.display = teks.includes(keyword) ? "" : "none";
         });
+        tableCounter();
     });
 }
 
@@ -55,6 +72,46 @@ function hapusError(input) {
     }
 }
 
+const aturanValidasi = [
+    {
+        selector: "[name='judul'], [name='nama']",
+        message: "Field ini wajib diisi.",
+        validate: function (value) {
+            return value.trim()!=="";
+        }
+    },
+    {
+        selector: "[name='pengarang']",
+        message: "Pengarang wajib diisi.",
+        validate: function (value) {
+            return value.trim()!=="";
+        }
+    },
+    {
+        selector: "[name='tahun']",
+        message: "Tahun harus di antara 1900-2026.",
+        validate: function (value) {
+            var n = parseInt(value, 10);
+            return !isNaN(n) && n>=1900 && n<=2026;
+        }
+    },
+    {
+        selector: "[name='stok']",
+        message: "Stok tidak boleh negatif.",
+        validate: function (value) {
+            var n = parseInt(value, 10);
+            return !isNaN(n) && n>=0;
+        }
+    },
+    {
+        selector: "[name='isbn']",
+        message: "Hanya masukkan angka dan tanda hubung.",
+        validate: function (value) {
+            return /^\d+(-\d+)*$/.test(value);
+        }
+    }
+];
+
 function initValidasiForm() {
     const form = document.getElementById("form-tambah");
     if (!form) return;
@@ -62,43 +119,15 @@ function initValidasiForm() {
     form.addEventListener("submit", function (e) {
         let valid = true;
 
-        const judul = form.querySelector("[name='judul'], [name='nama']");
-        if (judul && judul.value.trim() === "") {
-            tampilkanError(judul, "Field ini wajib diisi.");
-            valid = false;
-        } else if (judul) {
-            hapusError(judul);
-        }
-
-        const pengarang = form.querySelector("[name='pengarang']");
-        if (pengarang && pengarang.value.trim() === "") {
-            tampilkanError(pengarang, "Pengarang wajib diisi.");
-            valid = false;
-        } else if (pengarang) {
-            hapusError(pengarang);
-        }
-
-        const tahun = form.querySelector("[name='tahun']");
-        if (tahun) {
-            const nilai = parseInt(tahun.value, 10);
-            if (isNaN(nilai) || nilai < 1900 || nilai > 2026) {
-                tampilkanError(tahun, "Tahun harus di antara 1900-2026.");
+        aturanValidasi.forEach(function (rule) {
+            const input = form.querySelector(rule.selector);
+            if (input && !rule.validate(input.value)) {
+                tampilkanError(input, rule.message);
                 valid = false;
-            } else {
-                hapusError(tahun);
+            } else if (input) {
+                hapusError(input);
             }
-        }
-
-        const stok = form.querySelector("[name='stok']");
-        if (stok) {
-            const nilai = parseInt(stok.value, 10);
-            if (isNaN(nilai) || nilai < 0) {
-                tampilkanError(stok, "Stok tidak boleh negatif.");
-                valid = false;
-            } else {
-                hapusError(stok);
-            }
-        }
+        });
 
         if (!valid) {
             e.preventDefault();
@@ -111,4 +140,5 @@ document.addEventListener("DOMContentLoaded", function () {
     initHapusConfirm();
     initTableFilter();
     initValidasiForm();
+    tableCounter();
 });
