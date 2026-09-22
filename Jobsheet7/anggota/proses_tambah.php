@@ -12,6 +12,21 @@ if ($nama === '') {
 }
 if ($noAnggota === '') {
     $errors[] = "No. Anggota wajib diisi.";
+} elseif (strlen($noAnggota)<4){
+  $errors[] = "No. Anggota harus memiliki paling tidak 4 karakter.";
+}
+if ($noHp!==''){
+    if (!preg_match('/^[0-9-]+$/', $noHp)) {
+        $errors[] = "No. HP hanya boleh berisi angka dan hyphen (-).";
+    } else {
+        $digitCount=preg_match_all('/[0-9]/', $noHp);
+        if ($digitCount<10) {
+            $errors[] = "No. HP harus mengandung minimum 10 digit angka.";
+        }
+    }
+}
+if ($alamat === ""){
+  $errors[] = "Alamat wajib di-isi.";
 }
 
 if (!empty($errors)) {
