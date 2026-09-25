@@ -28,7 +28,7 @@ if (!$anggota) {
                 <p class="flash flash-<?php echo $flash['type']; ?>"><?php echo $flash['pesan']; ?></p>
             <?php endif; ?>
 
-            <form id="form-tambah" method="post" action="proses_edit.php">
+            <form id="form-tambah" method="post" action="proses_edit.php" onsubmit="return confirm('Apakah anda yakin untuk menyimpan perubahan pada anggota ini?')">
                 <input type="hidden" name="id" value="<?php echo $anggota['id']; ?>">
                 <p>
                     <label for="nama">Nama</label><br>
