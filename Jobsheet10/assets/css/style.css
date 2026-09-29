@@ -300,6 +300,18 @@ footer {
     cursor: pointer;
 }
 
+/* autentikasi */
+.auth-status {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #fff;
+}
+.auth-status a {
+    color: #fff;
+    text-decoration: underline;
+}
+
 /* Tablet ke bawah */
 @media (max-width: 900px) {
     main section:nth-of-type(2) {
