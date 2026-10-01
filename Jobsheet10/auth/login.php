@@ -32,6 +32,9 @@ unset($_SESSION['flash']);
                 <p>
                     <button type="submit">Masuk</button>
                 </p>
+                <p>
+                  <label> <input type="checkbox" name="remember" value="1">Simpan Login 7 Hari</label>
+                </p>
             </form>
             <p>Belum punya akun? <a href="register.php">Daftar di sini</a></p>
         </section>
