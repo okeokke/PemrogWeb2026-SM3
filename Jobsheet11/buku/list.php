@@ -65,14 +65,15 @@ $totalPages = max(1, (int) ceil($totalRows / $perPage));
                     <?php else: ?>
                         <?php foreach ($daftarBuku as $buku): ?>
                         <tr>
-                            <td><?php echo $buku['judul']; ?></td>
-                            <td><?php echo $buku['pengarang']; ?></td>
+                            <td><?php echo e($buku['judul']); ?></td>
+                            <td><?php echo e($buku['pengarang']); ?></td>
                             <td><?php echo $buku['tahun']; ?></td>
                             <td><?php echo $buku['stok']; ?></td>
                             <td>
                                 <a href="edit.php?id=<?php echo $buku['id']; ?>" class="btn-edit">Edit</a>
                                 <form class="form-hapus" method="post" action="hapus.php">
                                     <input type="hidden" name="id" value="<?php echo $buku['id']; ?>">
+                                    <?php echo csrf_field(); ?>
                                     <button type="submit" class="btn-hapus">Hapus</button>
                                 </form>
                             </td>
