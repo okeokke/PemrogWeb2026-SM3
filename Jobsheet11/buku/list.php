@@ -41,6 +41,7 @@ $totalPages = max(1, (int) ceil($totalRows / $perPage));
                     <span>
                         <label for="search-input">Cari Judul Buku</label><br>
                         <input type="text" id="search-input" name="q" value="<?php echo $keyword; ?>" placeholder="Ketik judul buku...">
+                        <?php echo csrf_field(); ?>
                     </span>
                     <button type="submit">Cari</button>
                 </form>

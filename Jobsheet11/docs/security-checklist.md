@@ -9,6 +9,7 @@ Audit menyeluruh terhadap kode Jobsheet 7-10, dengan bukti before/after.
 | 3 | CSRF (Cross-Site Request Forgery) | Form Tambah/Edit/Hapus Buku & Anggota, Login, Register | Form POST tidak memiliki token verifikasi — bisa dipicu dari situs lain | Ditambah `includes/csrf.php` (`csrf_field()` + `csrf_verify()`), token disimpan di `$_SESSION['csrf_token']`, diverifikasi di setiap `proses_*.php` dan `hapus.php` sebelum query dijalankan. |
 | 4 | Validasi & Sanitasi Input | `proses_tambah.php`, `proses_edit.php` (buku & anggota) | Sudah ada validasi tipe (`is_numeric`) dan wajib-isi sejak Jobsheet 7-9 | **Diaudit ulang, tetap dipertahankan** — ditambah cast eksplisit `(int)` pada `id` di form Edit untuk mencegah nilai non-numerik masuk sebagai hidden input. |
 | 5 | Session Fixation | `auth/proses_login.php` | Session ID tidak diperbarui setelah login | `session_regenerate_id(true)` dipanggil tepat setelah `password_verify()` berhasil. |
+| 6 | Error Log Leak | `includes/koneksi.php` | `$e->getMessage()` bisa ditampilkan ke layar saat koneksi gagal, termasuk detail host dan kredensial database.  | Pesan error diubah jadi teks umum 'Koneksi database gagal', pesan teknis hanya ke log server `error_log($e->getMessage())`. |
 
 ## Catatan Implementasi
 - Guard `includes/auth.php` selalu dijalankan **sebelum** `includes/csrf.php` di halaman proses — memastikan pengguna yang belum login tidak bisa memicu pengecekan CSRF sama sekali (langsung di-redirect ke login).
