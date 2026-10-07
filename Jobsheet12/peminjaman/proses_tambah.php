@@ -40,8 +40,8 @@ try {
     }
 
     $insert = $pdo->prepare(
-        "INSERT INTO peminjaman (buku_id, anggota_id, tanggal_pinjam, status)
-         VALUES (:buku_id, :anggota_id, CURRENT_DATE, 'dipinjam')"
+        "INSERT INTO peminjaman (buku_id, anggota_id, tanggal_pinjam, tgl_jatuh_tempo, status)
+         VALUES (:buku_id, :anggota_id, CURRENT_DATE, current_date + interval '14 days', 'dipinjam')"
     );
     $insert->execute(['buku_id' => $bukuId, 'anggota_id' => $anggotaId]);
 
